@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: k8s-demo-app
+  name: k8s-demo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-demo-app
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: k8s-demo-app
+    spec:
+      containers:
+      - image: api
+        name: k8s-demo-app
+        resources: {}
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health/liveness
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /actuator/health/readiness
+status: {}
