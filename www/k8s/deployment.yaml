@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world-www
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-world-www
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: hello-world-www
+    spec:
+      containers:
+      - image: hello-world-react:latest
+        name: hello-world-react
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            port: 3000
+            path: /
+#        readinessProbe:
+#          httpGet:
+#            port: 3000
+#            path: /
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-world-react-service
+spec:
+  ports:
+    - name: 3000-3000
+      port: 3000
+      protocol: TCP
+      targetPort: 3000
+  selector:
+    app: hello-world-www
+  type: NodePort
+

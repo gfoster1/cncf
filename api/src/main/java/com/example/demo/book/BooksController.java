@@ -1,4 +1,9 @@
-package com.example.demo;
+/*
+ * Copyright (c) 2021.
+ * This file is the property of Whitespace and may not be used, duplicated, or shared.
+ */
+
+package com.example.demo.book;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
