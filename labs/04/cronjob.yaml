@@ -1,0 +1,25 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  creationTimestamp: null
+  name: lab4-cronjob
+spec:
+  jobTemplate:
+    metadata:
+      creationTimestamp: null
+      name: lab4-cronjob
+    spec:
+      template:
+        metadata:
+          creationTimestamp: null
+        spec:
+          activeDeadlineSeconds: 10
+          containers:
+          - image: busybox
+            name: lab4-cronjob
+            command: ["/bin/sleep"]
+            args: ["30"]
+            resources: {}
+          restartPolicy: Never
+  schedule: '*/1 * * * *'
+status: {}

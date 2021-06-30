@@ -1,7 +1,23 @@
+apiVersion: v1
+data:
+  TEST_KEY: foobarbaz
+  test.key: foobarbaz
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: lab-5-configmap
+---
+apiVersion: v1
+data:
+  secret.key: dWx0cmEgc2VjcmV0IHNlY3JldA==
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: lab-5-secret
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: k8s-demo-app
   name: k8s-demo-app
@@ -21,6 +37,18 @@ spec:
       - image: api
         name: k8s-demo-app
         resources: {}
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: test.key
+          valueFrom:
+            configMapKeyRef:
+              name: lab-5-configmap
+              key: test.key
+        - name: secret.key
+          valueFrom:
+            secretKeyRef:
+              name: lab-5-secret
+              key: secret.key
         livenessProbe:
           httpGet:
             port: 8080
@@ -49,4 +77,3 @@ spec:
   type: ClusterIP
 status:
   loadBalancer: {}
-

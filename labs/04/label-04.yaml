@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: design-lab-4
+  name: design-lab-4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: design-lab-4
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: design-lab-4
+    spec:
+      containers:
+      - image: nginx
+        name: nginx
+        resources: {}
+status: {}

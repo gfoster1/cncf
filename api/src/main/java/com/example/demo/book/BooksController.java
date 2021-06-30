@@ -5,6 +5,7 @@
 
 package com.example.demo.book;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,13 @@ import reactor.core.publisher.Flux;
 @RequestMapping("/books")
 public class BooksController {
 
+    @Value("${test.key: default not a configMap}")
+    String configMapValue;
+
+    @Value("${secret.key:default not a secret}")
+    String secretValue;
+
+
     @GetMapping
     @CrossOrigin
     private Flux<Book> getBooks() {
@@ -23,7 +31,9 @@ public class BooksController {
                 new Book("George Foster", "How not to suck"),
                 new Book("Jordan Peterson", "12 Rules for Life"),
                 new Book("Jordan Peterson", "12 More Rules for Life"),
-                new Book("David Goggins", "Hard to kill")
+                new Book("David Goggins", "Hard to kill"),
+                new Book("configMapValue", configMapValue),
+                new Book("secretValue", secretValue)
         };
         return Flux.fromArray(books);
     }

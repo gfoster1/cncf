@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: lab4
+spec:
+  completions: 5
+  parallelism: 2
+  ttlSecondsAfterFinished: 5
+  template:
+    metadata:
+      creationTimestamp: null
+    spec:
+      containers:
+      - image: busybox
+        name: lab4
+        command: ["/bin/sh", "-c"]
+        args:
+          - echo "going to sleep";
+            /bin/sleep 3;
+            echo "Waking up";
+        resources: {}
+      restartPolicy: Never
+status: {}
